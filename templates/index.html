@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Email Validator</title>
+  <style>
+    body {
+      font-family: "Segoe UI", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      background: linear-gradient(135deg, #74ebd5, #9face6);
+    }
+
+    .container {
+      background: white;
+      padding: 30px 40px;
+      border-radius: 15px;
+      box-shadow: 0px 8px 20px rgba(0,0,0,0.2);
+      text-align: center;
+      width: 350px;
+    }
+
+    h2 {
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    input {
+      width: 100%;
+      padding: 12px;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      font-size: 16px;
+      transition: all 0.3s ease;
+      outline: none;
+    }
+
+    input:focus {
+      border-color: #6c63ff;
+      box-shadow: 0px 0px 8px rgba(108,99,255,0.6);
+    }
+
+    button {
+      margin-top: 15px;
+      width: 100%;
+      padding: 12px;
+      border: none;
+      border-radius: 8px;
+      background: #6c63ff;
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background 0.3s ease;
+    }
+
+    button:hover {
+      background: #5548c8;
+    }
+
+    #result {
+      margin-top: 20px;
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .valid {
+      color: green;
+    }
+
+    .invalid {
+      color: red;
+    }
+
+    /* extra effect on input */
+    .valid-input {
+      border-color: green !important;
+      box-shadow: 0px 0px 8px rgba(0,255,0,0.5);
+    }
+
+    .invalid-input {
+      border-color: red !important;
+      box-shadow: 0px 0px 8px rgba(255,0,0,0.5);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h2>Email Validation System</h2>
+    <input type="text" id="email" placeholder="Enter your email">
+    <button onclick="validateEmail()">Validate</button>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    async function validateEmail() {
+      const emailInput = document.getElementById("email");
+      const resultDiv = document.getElementById("result");
+
+      const res = await fetch("/validate", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email: emailInput.value })
+      });
+
+      const data = await res.json();
+
+      if (data.valid) {
+        resultDiv.innerText = data.message;
+        resultDiv.className = "valid";
+        emailInput.classList.remove("invalid-input");
+        emailInput.classList.add("valid-input");
+      } else {
+        resultDiv.innerText = data.message;
+        resultDiv.className = "invalid";
+        emailInput.classList.remove("valid-input");
+        emailInput.classList.add("invalid-input");
+      }
+    }
+  </script>
+</body>
+</html>
