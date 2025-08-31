@@ -1,3 +1,3 @@
 # Email-Validation
 To run use
-python app.py
+python app.py in vs code
