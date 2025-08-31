@@ -1,6 +1,6 @@
 from flask import Flask, render_template, request, jsonify
 from validator import validate_email   # ✅ Import your validator function
-import webbrowser, threading
+import webbrowser, threading #To run automatically on server
 
 app = Flask(__name__)
 
