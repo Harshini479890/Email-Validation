@@ -35,7 +35,7 @@ Run the application: Execute the main Python file.
 python app.py
 or
 python main.py
-This will start the server and automatically open the application in your default web browser at http://127.0.0.1:5000.
+This will start the server and automatically open the application in your default web browser.
 
 Technologies Used
 Python: The main programming language for the backend.
